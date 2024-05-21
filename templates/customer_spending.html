@@ -1,0 +1,37 @@
+<html>
+<head>
+</head>
+<body>
+    Find in Range: </br>
+    <form action="/customer/spending" method="post">
+        Start: </br>
+        <input type="date" name="start_date"> </br>
+        End: </br>
+        <input type="date" name="end_date"> </br>
+        <button type="submit">Search</button>
+    </form>
+<p><strong>Total Spending: </strong> {{message}}</p>
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+Your Spending
+<table>
+    <th>Year</th>
+	<th>Month</th>
+    <th>Money Spent</th>
+</th>
+{% for line in data %}
+	<tr>
+        <td>{{line['year']}}</td>
+		<td>{{line['month']}}</td>
+		<td>{{line['total_price']}}</td>
+	</tr>
+{% endfor %}
+</table>
+
+<a href="/customer/home">Go back</a>
+
+</body>
+</html>

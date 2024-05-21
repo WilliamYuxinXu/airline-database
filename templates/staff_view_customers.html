@@ -1,0 +1,28 @@
+<html>
+<head>
+</head>
+<body>
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+Customers on {{flight}}
+<table>
+    <th>Email</th>
+	<th>First Name</th>
+    <th>Last Name</th>
+</th>
+{% for line in data %}
+	<tr>
+        <td>{{line['email']}}</td>
+        <td>{{line['first_name']}}</td>
+        <td>{{line['last_name']}}</td>
+	</tr>
+{% endfor %}
+</table>
+
+<a href="/staff/home">Go back</a>
+
+</body>
+</html>

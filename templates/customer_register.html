@@ -1,0 +1,43 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/customer/registerAuth" method="POST">
+	Email: </br>
+	<input type="email" name = "email" placeholder="email" required/> </br>
+	Password: </br>
+	<input type="password" name = "password" placeholder="password" required/></br>
+	First Name: </br>
+	<input type="text" name = "first_name" placeholder="first name" required/> </br>
+	Last Name: </br>
+	<input type="text" name = "last_name" placeholder="last name" required/></br>
+	Primary Phone Number: </br>
+	<input type="tel" name = "phone_number" placeholder="phone number" required/> </br>
+	Building Number: </br>
+	<input type="number" name = "building_number" placeholder="building number" required/></br>
+	Street Name: </br>
+	<input type="text" name = "street_name" placeholder="street name" required/> </br>
+	Apartment Number (Optional): </br>
+	<input type="text" name = "apartment_number" placeholder="apartment number"/> </br>
+	City: </br>
+	<input type="text" name = "city" placeholder="city" required/> </br>
+	State/Province: </br>
+	<input type="text" name = "state" placeholder="state" required/></br>
+	Zip Code: </br>
+	<input type="number" name = "zip_code" placeholder="zip code" required/> </br>
+	Passport Number: </br>
+	<input type="number" name = "passport_number" placeholder="passport number" required/></br>
+	Passport Expiration Date: </br>
+	<input type="date" name = "passport_expiration" placeholder="passport expiration date" required/> </br>
+	Passport Country: </br>
+	<input type="text" name = "passport_country" placeholder="country on passport" required/></br>
+	Date of Birth: </br>
+	<input type="date" name = "date_of_birth" placeholder="date of birth" required/> </br>
+	<input type="submit" value = Register />
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+<a href="/">Go back</a>
+</body>
+</html>

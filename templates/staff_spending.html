@@ -1,0 +1,37 @@
+<html>
+<head>
+</head>
+<body>
+<p><strong>Last Year's Revenue: </strong> {{year}}</p>
+<p><strong>Last Month's Revenue: </strong> {{month}}</p>
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+Top Customers
+<table>
+    <th>Email</th>
+    <th>Number of Trips</th>
+	<th>Earnings</th>
+    <th>See Flights</th>
+</th>
+{% for line in data %}
+	<tr>
+        <td>{{line['email']}}</td>
+        <td>{{line['trips']}}</td>
+		<td>{{line['total_price']}}</td>
+        <td>
+            <form action="/staff/flights/spending" method="post">
+                <input type="hidden" name="email" value="{{line['email']}}">
+                <button type="submit">See Their Flights</button>
+            </form>
+        </td>
+	</tr>
+{% endfor %}
+</table>
+
+<a href="/staff/home">Go back</a>
+
+</body>
+</html>

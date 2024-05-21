@@ -1,0 +1,30 @@
+<html>
+<head>
+</head>
+<body>
+    <style type="text/css">
+        table, th, td{
+            border: 1px solid black;
+        }
+    </style>
+    Ratings for {{flight_number}}: </br>
+    Average Rating is {{average_rating}} </br>
+    <table>
+        <th>Customer:</th>
+        <th>Rating:</th>
+        <th>Comment:</th>
+    {% for line in ratings %}
+        <tr>
+            <td>{{line['email']}}</td>
+            <td>{{line['rating']}}</td>
+            <td>{{line['comment']}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    {% if past %} {% endif %}
+    <form action="/staff/home/past" method="post">
+        <input type="hidden" name="past_days" value="{{ past }}">
+        <button type="submit">Go Back</button>
+    </form>
+</body>
+</html>

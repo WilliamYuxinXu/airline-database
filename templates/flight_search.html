@@ -1,0 +1,159 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/public/flights/searchResults" method="POST">
+	Flight Number:  </br>
+	<input type="number" name = "flight_number" placeholder="flight number"/> </br>
+	Departure Date: </br>
+	<input type="date" name = "departure_date" placeholder="departure date"/> </br>
+	Departure Time: </br>
+	<input type="time" name = "departure_time" placeholder="departure time"/></br>
+	Departure Airport: </br>
+	<input type="text" name = "departure_airport" placeholder="departure airport"/> </br>
+	Departure City: </br>
+	<input type="text" name = "departure_city" placeholder="departure city"/> </br>
+	Roundtrip Departure Date: </br>
+	<input type="date" name = "arrival_date" placeholder="roundtrip departure date"/> </br>
+	Roundtrip Departure Time: </br>
+	<input type="time" name = "arrival_time" placeholder="roundtrip departure time"/></br>
+	Arrival Airport: </br>
+	<input type="text" name = "arrival_airport" placeholder="arrival airport"/> </br>
+	Arrival City: </br>
+	<input type="text" name = "arrival_city" placeholder="arrival airport"/> </br>
+	Ticket Price: </br>
+	<input type="number" name = "ticket_price" placeholder="ticket price"/> </br>
+    <label for="status">Flight Status:</label>
+    <select name="status" id="status">
+        <option value="">--</option>
+        <option value="On-time">On-time</option>
+        <option value="Delayed">Delayed</option>
+    </select> </br>
+	Seats Avaliable: </br>
+    <input type="number" name = "empty_seats" placeholder="empty seats"/> </br>
+	{% if staff %}
+		Future/Past: </br>
+		<select name="has_passed" id="has_passed">
+			<option value="">--</option>
+			<option value=0>Future</option>
+			<option value=1>Past</option>
+		</select> </br>
+	{% endif %}
+    <input type="submit" value = Search />
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+	<style type="text/css">
+		table, th, td{
+			border: 1px solid black;
+		}
+	</style>
+	
+	<table>
+		<th>Number</th>
+		<th>Departure Date</th>
+		<th>Departure Time</th>
+		<th>Departure Airport</th>
+		<th>Departure City</th>
+		<th>Arrival Date</th>
+		<th>Arrival Time</th>
+		<th>Arrival Airport</th>
+		<th>Arrival City</th>
+		<th>Status</th>
+		{% if customer %}
+			<th>Seats Left</th>
+		{% endif %}
+		{% if staff %}
+			<th>Seats Left</th>
+		{% endif %}
+		{% if round %}
+			<th>Return Number</th>
+			<th>Return Departure Date</th>
+			<th>Return Departure Time</th>
+			<th>Return Departure Airport</th>
+			<th>Return Departure City</th>
+			<th>Return Arrival Date</th>
+			<th>Return Arrival Time</th>
+			<th>Return Arrival Airport</th>
+			<th>Return Arrival City</th>
+			<th>Return Status</th>
+			{% if customer %}
+				<th>Return Seats Left</th>
+			{% endif %}
+			{% if staff %}
+				<th>Return Seats Left</th>
+			{% endif %}
+		{% endif %}
+		{% if customer %}
+			<th>Ticket Price</th>
+			<th>Buy Tickets</th>
+		{% endif %}
+	
+	{% for line in flights %}
+		<tr>
+			<td>{{line['flight_number']}}</td>
+			<td>{{line['departure_date']}}</td>
+			<td>{{line['departure_time']}}</td>
+			<td>{{line['departure_airport']}}</td>
+			<td>{{line['departure_city']}}</td>
+			<td>{{line['arrival_date']}}</td>
+			<td>{{line['arrival_time']}}</td>
+			<td>{{line['arrival_airport']}}</td>
+			<td>{{line['arrival_city']}}</td>
+			<td>{{line['status']}}</td>
+			{% if staff %}
+				<td>{{line['empty_seats']}}</td>
+			{% endif %}
+			{% if customer %}
+				<td>{{line['empty_seats']}}</td>
+			{% endif %}
+				{% if round %}
+					<td>{{line['flight_number2']}}</td>
+					<td>{{line['departure_date2']}}</td>
+					<td>{{line['departure_time2']}}</td>
+					<td>{{line['departure_airport2']}}</td>
+					<td>{{line['departure_city2']}}</td>
+					<td>{{line['arrival_date2']}}</td>
+					<td>{{line['arrival_time2']}}</td>
+					<td>{{line['arrival_airport2']}}</td>
+					<td>{{line['arrival_city2']}}</td>
+					<td>{{line['status2']}}</td>
+					{% if customer %}
+						<td>{{line['empty_seats2']}}</td>
+					{% endif %}
+					{% if staff %}
+						<td>{{line['empty_seats2']}}</td>
+					{% endif %}
+				{% endif %}
+			{% if customer %}
+			<td>{{line['ticket_price']}}</td>
+			<td>
+                <form action="/customer/ticket" method="post">
+                    <input type="hidden" name="flight_number" value="{{line['flight_number']}}">
+					<input type="hidden" name="departure_date" value="{{line['departure_date']}}">
+					<input type="hidden" name="departure_time" value="{{line['departure_time']}}">
+					<input type="hidden" name="current_price" value="{{line['ticket_price']}}">
+					<input type="hidden" name="flight_number2" value="{{line['flight_number2']}}">
+					<input type="hidden" name="departure_date2" value="{{line['departure_date2']}}">
+					<input type="hidden" name="departure_time2" value="{{line['departure_time2']}}">
+					<input type="hidden" name="current_price2" value="{{line['ticket_price2']}}">
+                    <button type="submit">Buy Tickets</button>
+                </form>
+            </td>
+			{% endif %}
+		</tr>
+	{% endfor %}
+	</table>
+</form>
+{% if not customer and not staff %}
+	<a href="/">Go back</a>
+{% endif %}
+{% if staff %}
+	<a href="/staff/home">Go back</a>
+{% endif %}
+{% if customer %}
+	<a href="/customer/home">Go back</a>
+{% endif %}
+</body>
+</html>

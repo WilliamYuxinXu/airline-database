@@ -1,0 +1,29 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/staff/registerAuth" method="POST">
+	Username: </br>
+	<input type="text" name = "username" placeholder="username" required/> </br>
+	Primary Email: </br>
+	<input type="email" name = "email" placeholder="email" required/> </br>
+	Password: </br>
+	<input type="password" name = "password" placeholder="password" required/></br>
+	First Name: </br>
+	<input type="text" name = "first_name" placeholder="first name" required/> </br>
+	Last Name: </br>
+	<input type="text" name = "last_name" placeholder="last name" required/></br>
+	Airline Company: </br>
+	<input type="text" name = "airline_name" placeholder="airline name" required/> </br>
+	Primary Phone Number: </br>
+	<input type="tel" name = "phone_number" placeholder="phone number" required/> </br>
+	Date of Birth: </br>
+	<input type="date" name = "date_of_birth" placeholder="date of birth" required/> </br>
+	<input type="submit" value = Register />
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+<a href="/">Go back</a>
+</body>
+</html>

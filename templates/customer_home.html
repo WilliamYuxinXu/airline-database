@@ -1,0 +1,89 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Welcome {{username}}</h1>
+{% if message %}
+	<p><strong>Message: </strong> {{message}}</p>
+{% endif %}
+<a href="/customer/flights/search">Search Flights</a> </br>
+<a href="/customer/home/past">See Past Flights</a> </br>
+<a href="/customer/home/future">See Current Flights</a> </br>
+<a href="/customer/spending">See Spending</a> </br>
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+Your Flights:
+<table>
+	<th>Number</th>
+	<th>Departure Date</th>
+	<th>Departure Time</th>
+	<th>Departure Airport</th>
+	<th>Arrival Date</th>
+	<th>Arrival Time</th>
+	<th>Arrival Airport</th>
+	<th>Status</th>
+	<th>Name on Ticket</th>
+	{% if not passed %}
+		<th>Cancel Flight</th>
+	{% endif %}
+	{% if passed %}
+		<th>Rate Flight</th>
+	{% endif %}
+
+{% for line in flights %}
+	<tr>
+		<td>{{line['flight_number']}}</td>
+		<td>{{line['departure_date']}}</td>
+		<td>{{line['departure_time']}}</td>
+		<td>{{line['departure_airport']}}</td>
+		<td>{{line['arrival_date']}}</td>
+		<td>{{line['arrival_time']}}</td>
+		<td>{{line['arrival_airport']}}</td>
+		<td>{{line['status']}}</td>
+		<td>{{line['name']}}</td>
+		{% if not passed %}
+		<td>
+			<form action="/customer/ticket/cancel" method="post">
+				<input type="hidden" name="flight_number" value="{{line['flight_number']}}">
+				<input type="hidden" name="departure_date" value="{{line['departure_date']}}">
+				<input type="hidden" name="departure_time" value="{{line['departure_time']}}">
+				<input type="hidden" name="ticket_id" value="{{line['ticket_id']}}">
+				<button type="submit">Cancel Flight</button>
+			</form>
+		</td>
+		{% endif %}
+		{% if passed %}
+		<td>
+			<form action="/customer/rate" method="post">
+				<input type="hidden" name="flight_number" value="{{line['flight_number']}}">
+				<input type="hidden" name="departure_date" value="{{line['departure_date']}}">
+				<input type="hidden" name="departure_time" value="{{line['departure_time']}}">
+				<select name="rating" id="rating">
+					<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select> </br>
+				<input type="text" name = "comment" placeholder="comment"/> </br>
+				<button type="submit">Rate Flight</button>
+			</form>
+		</td>
+		{% endif %}
+	</tr>
+{% endfor %}
+</table>
+
+<a href="/logout">Logout</a>
+
+</body>
+</html>

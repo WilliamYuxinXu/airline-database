@@ -1,0 +1,36 @@
+<html>
+<head>
+</head>
+<body>
+	<style type="text/css">
+		table, th, td{
+			border: 1px solid black;
+		}
+	</style>
+	
+	<table>
+		<th>Number</th>
+		<th>Departure Date</th>
+		<th>Departure Time</th>
+		<th>Departure Airport</th>
+		<th>Arrival Date</th>
+		<th>Arrival Time</th>
+		<th>Arrival Airport</th>
+		<th>Status</th>
+	
+	{% for line in flights %}
+		<tr>
+			<td>{{line['flight_number']}}</td>
+			<td>{{line['departure_date']}}</td>
+			<td>{{line['departure_time']}}</td>
+			<td>{{line['departure_airport']}}</td>
+			<td>{{line['arrival_date']}}</td>
+			<td>{{line['arrival_time']}}</td>
+			<td>{{line['arrival_airport']}}</td>
+			<td>{{line['status']}}</td>
+		</tr>
+	{% endfor %}
+	</table>
+<a href="/staff/spending">Go Back</a> </br>
+</body>
+</html>

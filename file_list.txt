@@ -1,0 +1,30 @@
+Files:
+Python Files:
+    customer.py: has all functions that are explusively used by customers 
+    staff.py: has all functions that are explusively used by staff
+    public.py has all functions that are shared between customer and staff
+    init1.py contains all endpoints and running python init1.py will start the server 
+
+SQL:
+    airline_network.sql: will generate the data for the database
+
+HTML:
+    index.html: hosts the first screen customers will use 
+    flight_search.html: search menu for flights, will change depending if customers, staff, or the public views it
+
+    customer_login.html: hosts the login menu for the customer
+    customer_home.html: hosts the home screen after a customer logs in
+    customer_register.html: hosts the screen for registering customers
+    customer_spending.html: hosts the screen that displays how much a customer spent
+
+    staff_add.html: hosts every way a staff can 
+    staff_comments.html: hosts the page that displays customer comments on a given flight
+    staff_customer_flight.html: hosts the page that sees every flight a given customer is on
+    staff_home.html: hosts the homepage of staff after login
+    staff_login.html: hosts the login page for staff
+    staff_register.html: hosts the registration page for staff
+    staff_spending.html: hosts the page that tracks how much money the airline has made, along with its most frequent customers
+    staff_view_customers: hosts page used to view customers on a given flight
+
+
+

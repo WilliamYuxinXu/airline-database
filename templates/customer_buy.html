@@ -1,0 +1,57 @@
+<html>
+<head>
+</head>
+<body>
+{% if not flight_number %}
+	<p class="error"><strong>Error:</strong> No Flight Number </p>
+{% endif %}
+{% if not departure_date %}
+	<p class="error"><strong>Error:</strong> No Departure Date</p>
+{% endif %}
+{% if not departure_time %}
+	<p class="error"><strong>Error:</strong> No Departure Time </p>
+{% endif %}
+{% if current_price %}
+<h1>Price: {{current_price}}</h1>
+{% endif %}
+{% if not current_price %}
+	<p class="error"><strong>Error:</strong> No Price </p>
+{% endif %}
+{% if error %}
+<p class="error"><strong>Error:</strong> {{error}}</p>
+{% endif %}
+{% if purchased %}
+<p class=><strong>Purchased</strong> {{purchased}}</p>
+{% endif %}
+<form action="/customer/ticket/buy" method="POST">
+    <input type="hidden" name="flight_number" value="{{flight_number}}">
+    <input type="hidden" name="departure_date" value="{{departure_date}}">
+    <input type="hidden" name="departure_time" value="{{departure_time}}">
+    <input type="hidden" name="current_price" value="{{current_price}}">
+	<input type="hidden" name="flight_number2" value="{{flight_number2}}">
+    <input type="hidden" name="departure_date2" value="{{departure_date2}}">
+    <input type="hidden" name="departure_time2" value="{{departure_time2}}">
+    <input type="hidden" name="current_price2" value="{{current_price2}}">
+	First Name: </br>
+	First Name: </br>
+	<input type="text" name = "first_name" placeholder="first name" required/></br>
+	Last Name: </br>
+	<input type="text" name = "last_name" placeholder="last name" required/></br>
+	Email: </br>
+	<input type="email" name = "email" placeholder="email" required/> </br>
+	Date of Birth: </br>
+    <input type="date" name = "date_of_birth" placeholder="date of birth" required/> </br>
+	Card Type: </br>
+	<input type="text" name = "card_type" placeholder="card type" required/></br>
+	Card Number: </br>
+	<input type="number" name = "card_number" placeholder="card number" required/> </br>
+	Name on Card: </br>
+	<input type="text" name = "name_on_card" placeholder="name on card" required/></br>
+	Expiration Date: </br>
+	<input type="date" name = "expiration_date" placeholder="expiration date" required/> </br>
+    <button type="submit">Buy Tickets</button>
+
+</form>
+<a href="/customer/flights/search">Go Back</a> </br>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<html>
+<head>
+</head>
+<body>
+{% if submit %}
+	<p><strong>Message:</strong> {{submit}}</p>
+{% endif %}
+<a href="/staff/add/flights", >Add Flight</a> </br>
+<a href="/staff/add/airplane", >Add Airplane</a> </br>
+<a href="/staff/add/airport", >Add Airport</a> </br>
+<a href="/staff/add/maintenance", >Add Maintenance</a> </br>
+{% if flight %}
+<form action="/staff/add/flights/add" method="POST">
+	Flight Number:  </br>
+	<input type="number" name = "flight_number" placeholder="flight number"/> </br>
+	Departure Date: </br>
+	<input type="date" name = "departure_date" placeholder="departure date"/> </br>
+	Departure Time: </br>
+	<input type="time" name = "departure_time" placeholder="departure time"/></br>
+    Airplane ID: </br>
+	<input type="text" name = "airplane_id" placeholder="airplane id"/></br>
+	Departure Airport: </br>
+	<input type="text" name = "departure_airport" placeholder="departure airport"/> </br>
+	Arrival Date: </br>
+	<input type="date" name = "arrival_date" placeholder="arrival date "/> </br>
+	Arrival Time: </br>
+	<input type="time" name = "arrival_time" placeholder="arrival time"/></br>
+	Arrival Airport: </br>
+	<input type="text" name = "arrival_airport" placeholder="arrival airport"/> </br>
+	Ticket Price: </br>
+	<input type="number" name = "ticket_price" placeholder="ticket price" min="0"/> </br>
+    <label for="status">Flight Status:</label>
+	Flight Status: </br>
+    <select name="status" id="status">
+        <option value="On-time">On-time</option>
+        <option value="Delayed">Delayed</option>
+    </select> </br>
+    <input type="submit" value = Create  />
+</form>
+{% endif %}
+{% if airport %}
+<form action="/staff/add/airport/add" method="POST">
+	Airport Code:  </br>
+	<input type="text" name = "code" placeholder="airport code"/> </br>
+	Airport Name: </br>
+	<input type="text" name = "name" placeholder="airport name"/> </br>
+	City: </br>
+	<input type="text" name = "city" placeholder="city"/></br>
+    Country: </br>
+	<input type="text" name = "country" placeholder="country"/></br>
+	Number of Terminals: </br>
+	<input type="number" name = "number_of_terminals" placeholder="number of terminals" min="1"/> </br>
+	Type of Airport: </br>
+    <select name="type" id="type">
+		<option value="Both">Both</option>
+        <option value="International">International</option>
+        <option value="Domestic">Domestic</option>
+    </select> </br>
+    <input type="submit" value = Create />
+</form>
+{% endif %}
+
+{% if airplane %}
+<form action="/staff/add/airplane/add" method="POST">
+	Airplane Id:  </br>
+	<input type="text" name = "airplane_id" placeholder="airplane id"/> </br>
+	Manufacturer: </br>
+	<input type="text" name = "manufacturer" placeholder="manufacturer"/></br>
+    Model Number: </br>
+	<input type="text" name = "model_number" placeholder="model_number"/> </br>
+    Manufacturing Date: </br>
+	<input type="date" name = "manufacturing_date" placeholder="manufacturing date"/></br>
+	Number of Seats: </br>
+	<input type="number" name = "number_of_seats" placeholder="number of seats" min="1"/> </br>
+    <input type="submit" value = Create />
+</form>
+{% endif %}
+
+{% if maintenance %}
+<form action="/staff/add/maintenance/add" method="POST">
+	Airplane Id:  </br>
+	<input type="text" name = "airplane_id" placeholder="airplane id"/> </br>
+	Start Date: </br>
+	<input type="date" name = "start_date" placeholder="start date"/></br>
+    Start Time: </br>
+	<input type="time" name = "start_time" placeholder="start time"/></br>
+    End Date: </br>
+	<input type="date" name = "end_date" placeholder="end date"/></br>
+    End Time: </br>
+	<input type="time" name = "end_time" placeholder="end time"/></br>
+    <input type="submit" value = Create />
+</form>
+{% endif %}
+
+{% if airplanes %}
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+Airplanes
+<table>
+    <th>Id</th>
+	<th>Number of Seats</th>
+    <th>Manufacturer</th>
+	<th>Model Number</th>
+	<th>Manufacturing Date</th>
+    <th>Age (Years)</th>
+</th>
+{% for line in airplanes %}
+	<tr>
+        <td>{{line['airplane_id']}}</td>
+		<td>{{line['number_of_seats']}}</td>
+		<td>{{line['manufacturer']}}</td>
+		<td>{{line['model_number']}}</td>
+		<td>{{line['manufacturing_date']}}</td>
+		<td>{{line['age']}}</td>
+	</tr>
+{% endfor %}
+</table>
+{% endif %}
+<a href="/staff/home">Go Back</a>
+</body>
+</html>

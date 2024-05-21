@@ -1,0 +1,93 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Welcome {{username}}</h1>
+<a href="/staff/add">Add Data</a> </br>
+<a href="/staff/flights/search">Search Flights</a> </br>
+<a href="/staff/spending">See Revenue</a> </br>
+
+<form action="/staff/home/past" method="POST">
+	Departed _ Days Ago:  </br>
+	<input type="number" name = "past_days" min = 0 placeholder="past days"/> </br>
+    <input type="submit" value = Search />
+</form>
+<form action="/staff/home/past" method="POST">
+	Departs in _ Days:  </br>
+	<input type="number" name = "future_days" min = 0 placeholder="future days"/> </br>
+    <input type="submit" value = Search />
+</form>
+<style type="text/css">
+	table, th, td{
+		border: 1px solid black;
+	}
+</style>
+Your Flights:
+<table>
+	<th>Number</th>
+	<th>Departure Date</th>
+	<th>Departure Time</th>
+	<th>Departure Airport</th>
+	<th>Arrival Date</th>
+	<th>Arrival Time</th>
+	<th>Arrival Airport</th>
+	<th>Status</th>
+	{% if future %}
+		<th>Change Status</th>
+	{% endif %}
+	{% if past %}
+		<th>View Rating</th>
+	{% endif %}
+	<th>View Customers</th>
+{% for line in flights %}
+	<tr>
+		<td>{{line['flight_number']}}</td>
+		<td>{{line['departure_date']}}</td>
+		<td>{{line['departure_time']}}</td>
+		<td>{{line['departure_airport']}}</td>
+		<td>{{line['arrival_date']}}</td>
+		<td>{{line['arrival_time']}}</td>
+		<td>{{line['arrival_airport']}}</td>
+		<td>{{line['status']}}</td>
+		{% if future %}
+		<td>
+			<form action="/staff/flights/modify" method="post">
+				<input type="hidden" name="flight_number" value="{{line['flight_number']}}">
+				<input type="hidden" name="departure_date" value="{{line['departure_date']}}">
+				<input type="hidden" name="departure_time" value="{{line['departure_time']}}">
+				<input type="hidden" name="future_days" value="{{ future }}">
+				<input type="hidden" name="status" value="{{line['status']}}">
+				<button type="submit">Swap Status</button>
+			</form>
+		</td>
+		{% endif %}
+		{% if past %}
+		<td>
+			<form action="/staff/rate" method="post">
+				<input type="hidden" name="flight_number" value="{{line['flight_number']}}">
+				<input type="hidden" name="departure_date" value="{{line['departure_date']}}">
+				<input type="hidden" name="departure_time" value="{{line['departure_time']}}">
+				<input type="hidden" name="past_days" value="{{ past }}">
+				<button type="submit">View Ratings</button>
+			</form>
+		</td>
+		{% endif %}
+		<td>
+			<form action="/staff/customer" method="post">
+				<input type="hidden" name="flight_number" value="{{line['flight_number']}}">
+				<input type="hidden" name="departure_date" value="{{line['departure_date']}}">
+				<input type="hidden" name="departure_time" value="{{line['departure_time']}}">
+				<input type="hidden" name="past_days" value="{{ past }}">
+				<button type="submit">View Customers</button>
+			</form>
+		</td>
+	</tr>
+{% endfor %}
+</table>
+
+<a href="/logout">Logout</a>
+
+</body>
+
+
+</html>
